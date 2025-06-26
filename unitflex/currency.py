@@ -1,20 +1,7 @@
-import urllib.request
-import json
-from urllib.error import URLError
-
 EXCHANGE_RATES = {
     'EUR': {'USD': 1.11},
     'USD': {'EUR': 0.90},
 }
-
-def get_live_rate(from_currency: str, to_currency: str) -> float | None:
-    url = f"https://api.exchangerate.host/convert?from={from_currency}&to={to_currency}"
-    try:
-        with urllib.request.urlopen(url, timeout=3) as response:
-            data = json.loads(response.read().decode())
-            return data.get('result')
-    except (URLError, ValueError, TimeoutError):
-        return None
 
 def convert_currency(from_currency: str, to_currency: str, amount: float) -> float:
     from_currency = from_currency.upper()
